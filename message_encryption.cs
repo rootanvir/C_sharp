@@ -8,9 +8,15 @@ namespace ConsoleAppFirst
 {
     internal class Program
     {
-        public string encrypt(string str)
+        public string encrypt(string str, string kk)
         {
-            int[] key = { 2, -5, 5, 8, -4, 7 };
+            int[] key = new int[kk.Length];
+            for (int i = 0; i < kk.Length; i++)
+            {
+
+                key[i] = (int)(kk[i] % 48);
+            }
+
             int j = 0;
             string msg="";
             for (int i = 0; i < str.Length; i++)
@@ -21,12 +27,17 @@ namespace ConsoleAppFirst
                 j++;
            
             }
-            Console.WriteLine();
+         
             return msg;
         }
-        public string decrpyt(string str)
+        public string decrpyt(string str, string kk)
         {
-            int[] key = { 2, -5, 5, 8, -4, 7 };
+            int[] key = new int[kk.Length];
+            for (int i = 0; i < kk.Length; i++)
+            {
+
+                key[i] = (int)(kk[i] % 48);
+            }
             int j = 0;
             string msg = "";
             for (int i = 0; i < str.Length; i++)
@@ -35,19 +46,68 @@ namespace ConsoleAppFirst
                 char ch = (char)(str[i] - key[j]);
                 msg += Convert.ToString(ch);
                 j++;
-
             }
-            Console.WriteLine();
+           
             return msg;
 
         }
         
+        
 
         static void Main(string[] args)
         {
-            Program p = new Program();
-            string str = Console.ReadLine();
-            Console.WriteLine(p.decrpyt(str));            
+            Program p= new Program();
+            while(true) {
+                Console.WriteLine("1.encrypt message:");
+                Console.WriteLine("2.decrypt message");
+                Console.WriteLine("3.clear screen");
+                Console.Write("0.exit \n>:");
+                int s=Convert.ToInt32(Console.ReadLine());
+                if(s==1)
+                {
+                    Console.Write("Enter key: ");
+                    string k=Console.ReadLine();
+                    Console.Write("Enter message to encrypt: ");
+                    string str=Console.ReadLine(); 
+                    Console.Write("Encrypted Message: ");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write(p.encrypt(str,k)+"\n");
+                    Console.WriteLine();
+                    Console.ResetColor();   
+
+                }
+                else if(s==2)
+                {
+                    Console.Write("Enter key: ");
+                    string k = Console.ReadLine();
+                    Console.Write("Enter message to decrypt: ");
+                    string str = Console.ReadLine();
+                    Console.Write("Decrypted Message: ");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write(p.decrpyt(str, k)+"\n");
+                    Console.WriteLine();
+                    Console.ResetColor();
+                }
+                else if(s==0)
+                {
+                    break;
+                }
+                else if(s==3)
+                {
+                    Console.Clear();
+                }
+                else
+                {
+                    Console.WriteLine("Wrong input");
+                    Console.Clear();
+                }
+                
+            
+            }
+            
+         
+
+
         }
     }
 }
